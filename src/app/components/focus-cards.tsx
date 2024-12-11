@@ -4,19 +4,17 @@ import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Cover } from "./cover";
 
+// Define a specific type for the card prop
+type CardProps = {
+  card: { title: string; src: string };
+  index: number;
+  hovered: number | null;
+  setHovered: React.Dispatch<React.SetStateAction<number | null>>;
+};
+
 // Card component
 export const Card = React.memo(
-  ({
-    card,
-    index,
-    hovered,
-    setHovered,
-  }: {
-    card: any;
-    index: number;
-    hovered: number | null;
-    setHovered: React.Dispatch<React.SetStateAction<number | null>>;
-  }) => (
+  ({ card, index, hovered, setHovered }: CardProps) => (
     <div
       onMouseEnter={() => setHovered(index)}
       onMouseLeave={() => setHovered(null)}
@@ -65,51 +63,49 @@ export function FocusCards({ cards }: { cards: Card[] }) {
   }
 
   return (
-     <div className="bg-black">
+    <div className="bg-black">
       <h1 className="text-4xl md:text-4xl lg:text-6xl font-semibold max-w-7xl mx-auto text-center mt-0 relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 via-neutral-600 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
-        It's Just a Gallery <br />  with <Cover> memories!!</Cover>
+        It&apos;s Just a Gallery <br /> with <Cover> memories!!</Cover>
       </h1>
-    {/* <h1 className="flex items-center justify-center text-3xl mt-14 mb-2 ">Just a gallery</h1> */}
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-10 max-w-5xl mx-auto md:px-8 w-full">
-      {cards.map((card, index) => (
-        <Card
-          key={card.title}
-          card={card}
-          index={index}
-          hovered={hovered}
-          setHovered={setHovered}
-        />
-    ))}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-10 max-w-5xl mx-auto md:px-8 w-full">
+        {cards.map((card, index) => (
+          <Card
+            key={card.title}
+            card={card}
+            index={index}
+            hovered={hovered}
+            setHovered={setHovered}
+          />
+        ))}
+      </div>
     </div>
-    </div>
-
   );
 }
 
 // Example component using FocusCards with local images
 const ExampleComponent = () => {
-    const [cards, setCards] = useState<Card[]>([]);
-    
-    // Fetch cards data asynchronously
-    useEffect(() => {
-        const fetchData = async () => {
-            const localImages = [
-                { title: 'A click before exam starts', src: '/img2.jpg' },
-                { title: 'Dosta', src: '/img7.jpg' },
-                { title: 'Picture Perfect', src: '/img1.png' },
-                { title: 'Beach Vibe hai', src: '/img5.jpg' },
-                { title: 'Suit-Boot', src: '/img4.jpg' },
-                { title: 'Weekends', src: '/img9.png' },
-                { title: 'Work days', src: '/img10.png' },
-                { title: 'Me before meets', src: '/img8.png' },
+  const [cards, setCards] = useState<Card[]>([]);
+
+  // Fetch cards data asynchronously
+  useEffect(() => {
+    const fetchData = async () => {
+      const localImages = [
+        { title: 'A click before exam starts', src: '/img2.jpg' },
+        { title: 'Dosta', src: '/img7.jpg' },
+        { title: 'Picture Perfect', src: '/img1.png' },
+        { title: 'Beach Vibe hai', src: '/img5.jpg' },
+        { title: 'Suit-Boot', src: '/img4.jpg' },
+        { title: 'Weekends', src: '/img9.png' },
+        { title: 'Work days', src: '/img10.png' },
+        { title: 'Me before meets', src: '/img8.png' },
         // Add more images as needed
       ];
       setCards(localImages);
     };
     fetchData();
-}, []);
+  }, []);
 
-return <FocusCards cards={cards} />;
+  return <FocusCards cards={cards} />;
 };
 
 export default ExampleComponent;
