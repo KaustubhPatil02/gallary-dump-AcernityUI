@@ -1,6 +1,5 @@
 import React from 'react'
-import ExampleComponent, { FocusCards } from './components/focus-cards'
-import { Cover } from './components/cover'
+import ExampleComponent from './components/focus-cards'
 
 const page = () => {
   return (
